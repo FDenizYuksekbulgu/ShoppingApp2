@@ -20,6 +20,14 @@ namespace ShoppingApp2.Data.Context
             modelBuilder.ApplyConfiguration(new OrderProductConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
+            modelBuilder.Entity<SettingEntity>().HasData(
+                new SettingEntity
+                {
+                    Id = 1,
+                    MaintenenceMode = false
+                }
+            );
+
             // User - Order Relationship (UserEntity - OrderEntity)
             modelBuilder.Entity<OrderEntity>()
                 .HasOne(o => o.Customer)  // Order'un bir Customer'ı var
@@ -33,7 +41,7 @@ namespace ShoppingApp2.Data.Context
 
             modelBuilder.Entity<OrderProductEntity>()
                 .HasOne(op => op.Order)  // OrderProduct bir Order'a sahip
-                .WithMany(o => o.OrderFeatures)  // Bir Order birden fazla OrderProduct'a sahip
+                .WithMany(o => o.OrderProducts)  // Bir Order birden fazla OrderProduct'a sahip
                 .HasForeignKey(op => op.OrderId);  // Foreign Key: OrderId
 
             modelBuilder.Entity<OrderProductEntity>()
@@ -49,5 +57,6 @@ namespace ShoppingApp2.Data.Context
         public DbSet<OrderEntity> Orders => Set<OrderEntity>();
         public DbSet<OrderProductEntity> OrderProducts => Set<OrderProductEntity>();
         public DbSet<ProductEntity> Products => Set<ProductEntity>();
+        public DbSet<SettingEntity> Settings => Set<SettingEntity>();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShoppingApp2.Business.Data_Protection;
 using ShoppingApp2.Business.Operations.User.Dtos;
 using ShoppingApp2.Business.Types;
 using ShoppingApp2.Data.Entities;
@@ -16,13 +17,13 @@ namespace ShoppingApp2.Business.Operations.User
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<UserEntity> _userRepository;
+        private readonly IDataProtection _protector;
 
-
-        public UserManager(IUnitOfWork unitOfWork, IRepository<UserEntity> userRepository)
+        public UserManager(IUnitOfWork unitOfWork, IRepository<UserEntity> userRepository, IDataProtection protector)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
-
+            _protector = protector;
         }
 
         public async Task<ServiceMessage> AddUser(AddUserDto user)
@@ -41,10 +42,13 @@ namespace ShoppingApp2.Business.Operations.User
             var userEntity = new UserEntity
             {
                 Email = user.Email,
-                Password = user.Password, //Şifreleme
+                Password = _protector.Protect(user.Password), //Şifreleme
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                BirthDate = user.BirthDate,
                 Role = UserType.Customer,
+                PhoneNumber = user.PhoneNumber,
+                
             };
 
             _userRepository.Add(userEntity);
@@ -63,7 +67,47 @@ namespace ShoppingApp2.Business.Operations.User
                 IsSucceed = true
             };
         }
-    }
 
-       
+        public ServiceMessage<UserInfoDto> LoginUser(LoginUserDto user)
+        {
+            var userEntity = _userRepository.Get(x => x.Email.ToLower() == user.Email.ToLower());
+
+            if (userEntity == null)
+            {
+                return new ServiceMessage<UserInfoDto>
+                {
+                    IsSucceed = false,
+                    Message = "Kullanıcı adı veya şifre hatalı."
+                };
+            }
+
+            var unprotectedPassword = _protector.UnProtect(userEntity.Password);
+
+            if (unprotectedPassword == user.Password)
+            {
+                return new ServiceMessage<UserInfoDto>
+                {
+                    IsSucceed = true,
+                    Data = new UserInfoDto
+                    {
+                        Email = userEntity.Email,
+                        FirstName = userEntity.FirstName,
+                        LastName = userEntity.LastName,
+                        Role = userEntity.Role,
+                    }
+                };
+            }
+            else
+            {
+                return new ServiceMessage<UserInfoDto>
+                {
+                    IsSucceed = false,
+                    Message = "Kullanıcı adı veya şifre hatalı."
+                };
+            }
+        }
     }
+}
+    
+
+

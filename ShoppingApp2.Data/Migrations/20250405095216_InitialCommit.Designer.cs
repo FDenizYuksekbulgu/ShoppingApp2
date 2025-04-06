@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppingApp2.Data.Context;
 
@@ -11,9 +12,11 @@ using ShoppingApp2.Data.Context;
 namespace ShoppingApp2.Data.Migrations
 {
     [DbContext(typeof(ShoppingApp2DbContext))]
-    partial class ShoppingApp2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405095216_InitialCommit")]
+    partial class InitialCommit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,40 +118,6 @@ namespace ShoppingApp2.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ShoppingApp2.Data.Entities.SettingEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MaintenenceMode")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            MaintenenceMode = false
-                        });
-                });
-
             modelBuilder.Entity("ShoppingApp2.Data.Entities.UserEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -213,7 +182,7 @@ namespace ShoppingApp2.Data.Migrations
             modelBuilder.Entity("ShoppingApp2.Data.Entities.OrderProductEntity", b =>
                 {
                     b.HasOne("ShoppingApp2.Data.Entities.OrderEntity", "Order")
-                        .WithMany("OrderProducts")
+                        .WithMany("OrderFeatures")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -231,7 +200,7 @@ namespace ShoppingApp2.Data.Migrations
 
             modelBuilder.Entity("ShoppingApp2.Data.Entities.OrderEntity", b =>
                 {
-                    b.Navigation("OrderProducts");
+                    b.Navigation("OrderFeatures");
                 });
 
             modelBuilder.Entity("ShoppingApp2.Data.Entities.ProductEntity", b =>

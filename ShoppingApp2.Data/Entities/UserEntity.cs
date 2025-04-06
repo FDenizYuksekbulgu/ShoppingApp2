@@ -18,8 +18,10 @@ namespace ShoppingApp2.Data.Entities
         public string PhoneNumber { get; set; }
         public UserType Role { get; set; }
 
+
         // Relational Properties
         public ICollection<OrderEntity> Orders { get; set; } // Kullanıcının verdiği siparişleri tutuyor.
+        public DateTime BirthDate { get; set; }
     }
 
 

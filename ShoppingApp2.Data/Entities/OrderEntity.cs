@@ -15,7 +15,7 @@ namespace ShoppingApp2.Data.Entities
 
         // Relational Properties
         public UserEntity Customer { get; set; } // Kullanıcıya (Müşteri) ait ilişki
-        public ICollection<OrderProductEntity> OrderFeatures { get; set; } // Sipariş ile ürünler arasındaki ilişkiyi kuruyor
+        public ICollection<OrderProductEntity> OrderProducts { get; set; } // Sipariş ile ürünler arasındaki ilişkiyi kuruyor
     }
 
     public class OrderConfiguration : BaseConfiguration<OrderEntity>

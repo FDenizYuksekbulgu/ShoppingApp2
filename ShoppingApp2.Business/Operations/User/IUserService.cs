@@ -12,7 +12,8 @@ namespace ShoppingApp2.Business.Operations.User
     {
         
         Task<ServiceMessage> AddUser(AddUserDto user); // async çünkü UnitOfWork kullanılacak.
+        ServiceMessage<UserInfoDto> LoginUser(LoginUserDto user);
 
-        
+
     }
 }
