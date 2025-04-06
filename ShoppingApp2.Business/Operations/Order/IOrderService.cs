@@ -6,7 +6,7 @@ namespace ShoppingApp2.Business.Operations.Order.Dtos
     {
         Task<ServiceMessage> AddOrder(AddOrderDto order);
         Task<OrderDto> GetOrder(int id);
-        Task<List<OrderDto>> GetOrders();  
+        Task<List<OrderDto>> GetOrders();
         Task<ServiceMessage> DeleteOrder(int id);
         Task<ServiceMessage> UpdateOrder(UpdateOrderDto hotel);
     }

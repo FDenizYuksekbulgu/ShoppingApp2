@@ -14,3 +14,5 @@ namespace ShoppingApp2.Business.Operations.Product.Dtos
 
     }
 }
+
+

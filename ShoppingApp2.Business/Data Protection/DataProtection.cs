@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.DataProtection;
 
 namespace ShoppingApp2.Business.Data_Protection
 {
-    public class DataProtection : IDataProtection
+    public class DataProtection : IDataProtection // Verileri düz bir şekilde değil şifreleyerek veritabanına kaydederiz.
     {
         private readonly IDataProtector _protector;
 
         public DataProtection(IDataProtectionProvider provider)
         {
-            _protector = provider.CreateProtector("BookingApp-security-v1");
+            _protector = provider.CreateProtector("ShoppingApp-security-v1");
         }
 
         public string Protect(string text)
@@ -27,3 +27,20 @@ namespace ShoppingApp2.Business.Data_Protection
         }
     }
 }
+
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+//namespace ShoppingApp2.Business.Data_Protection
+//{
+//    public interface IDataProtection
+//    {
+//        string Protect(string text);
+//        string UnProtect(string protectedText);
+//    }
+//}
+
+
