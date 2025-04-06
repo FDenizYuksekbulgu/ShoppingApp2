@@ -37,7 +37,7 @@ namespace ShoppingApp2.WebApi.Controllers
         }
 
         [HttpPost]
-        [TimeRestrictedActionFilter("09:00", "17:00")]
+        [TimeRestrictedActionFilter("09:00", "17:00")] // Bu satırda, TimeRestrictedActionFilter adında özel bir action filter'ı kullanıldı. Bu filter, belirli bir zaman diliminde ( 09:00-17:00) yapılan isteklerin işlenmesini kontrol eder. Eğer istek bu zaman dilimi dışında yapılırsa, filter işlem yapılmasına izin vermez.
         public async Task<IActionResult> AddOrder(AddOrderRequest request)
         {
             var addOrderDto = new AddOrderDto

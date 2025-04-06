@@ -12,7 +12,7 @@ namespace ShoppingApp2.Business.Operations.Order.Services
     {
         private readonly IRepository<OrderEntity> _orderRepository;
         private readonly IRepository<OrderProductEntity> _orderProductRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork; //OrderManager sınıfı, IRepository<OrderEntity>, IRepository<OrderProductEntity>, ve IUnitOfWork gibi bağımlılıkları constructor aracılığıyla alır.   Bu bağımlılıklar dışarıdan dependency injection container tarafından sağlanır.
 
         public OrderManager(IRepository<OrderEntity> orderRepository,
                             IRepository<OrderProductEntity> orderProductRepository,

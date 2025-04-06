@@ -24,7 +24,7 @@ namespace ShoppingApp2.WebApi.Middlewares
             {
                 _logger.LogError(ex, "An unhandled exception occurred.");
                 await HandleExceptionAsync(context, ex);
-            }
+            } //Bu örnekte, ExceptionHandlingMiddleware sınıfı bir middleware olarak yapılandırılmıştır. Gelen her istekte, oluşabilecek hatalar try-catch bloğuyla yakalanır ve yönetilir. Eğer bir hata meydana gelirse, hata loglanır ve kullanıcıya genel bir hata mesajı döndürülür.
         }
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -33,7 +33,7 @@ namespace ShoppingApp2.WebApi.Middlewares
             {
                 StatusCode = (int)HttpStatusCode.InternalServerError,
                 Message = "An unexpected error occurred. Please try again later.",
-                Details = exception.Message // Detayları istemciye göstermek istemiyorsanız bu satırı kaldırabilirsiniz.
+                Details = exception.Message // Detayları istemciye göstermek istemiyorsak bu satırı kaldırabiliriz.
             };
 
             context.Response.ContentType = "application/json";

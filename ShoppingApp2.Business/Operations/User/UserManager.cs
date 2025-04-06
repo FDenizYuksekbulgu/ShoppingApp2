@@ -42,7 +42,7 @@ namespace ShoppingApp2.Business.Operations.User
             var userEntity = new UserEntity
             {
                 Email = user.Email,
-                Password = _protector.Protect(user.Password), //Şifreleme
+                Password = _protector.Protect(user.Password), //Şifreleme //Bu işlem, veri şifreleme ve anahtar yönetimi süreçlerini içerir. ASP.NET Core, otomatik olarak şifreleme anahtarlarını yönetir ve bu anahtarlar yalnızca yetkilendirilmiş kişiler tarafından erişilebilir olur.
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 BirthDate = user.BirthDate,
